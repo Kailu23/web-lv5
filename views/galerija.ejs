@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Galerija slika</title>
+
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="/style/style_slike.css">
+    <link rel="stylesheet" href="/style/nav.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Galerija slika</h1>
+</header>
+
+<input type="checkbox" id="menu-toggle">
+
+<nav class="side-nav" aria-labelledby="primarna-navigacija">
+    <h2 id="primarna-navigacija" class="visually-hidden">Primarna navigacija</h2>
+
+    <label for="menu-toggle" class="menu-button" aria-label="Otvori izbornik">
+        ☰
+    </label>
+
+    <ul>
+        <li><a href="/">Početna</a></li>
+        <li><a href="/grafikon">Grafikon</a></li>
+        <li><a href="/slike">Slike</a></li>
+        <li><a href="/galerija">Galerija</a></li>
+        <li><a href="#">Kontakt</a></li>
+    </ul>
+</nav>
+
+<section class="gallery">
+    <% images.forEach(image => { %>
+
+        <figure>
+            <a href="#<%= image.id %>">
+                <img src="<%= image.url %>" alt="<%= image.title %>">
+            </a>
+            <figcaption><%= image.title %></figcaption>
+        </figure>
+
+        <!-- LIGHTBOX -->
+        <div id="<%= image.id %>" class="lightbox">
+            <a href="#" class="close"></a>
+            <img src="<%= image.url %>" alt="<%= image.title %>">
+        </div>
+
+    <% }) %>
+</section>
+
+</body>
+</html>

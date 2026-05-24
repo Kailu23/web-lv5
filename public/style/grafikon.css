@@ -1,0 +1,105 @@
+:root {
+    --drama: 33;
+    --crime: 27;
+    --comedy: 20;
+    --documentary: 20;
+
+    --color-drama: #ff6384;
+    --color-crime: #36a2eb;
+    --color-comedy: #ffcd56;
+    --color-documentary: #4bc0c0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #111;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 40px;
+}
+
+.pie {
+    width: 250px;
+    height: 250px;
+    margin: auto;
+    border-radius: 50%;
+    background: conic-gradient(var(--color-drama) 0% 33%,
+            var(--color-crime) 33% 60%,
+            var(--color-comedy) 60% 80%,
+            var(--color-documentary) 80% 100%);
+    animation: grow 1.5s ease-out;
+    position: relative;
+}
+
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.pie:hover::after {
+    content: "Drama 33% | Crime 27% | Comedy 20% | Documentary 20%";
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.legend {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.legend div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.box {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 3px;
+
+}
+
+.drama {
+    background: var(--color-drama);
+}
+
+.crime {
+    background: var(--color-crime);
+}
+
+.comedy {
+    background: var(--color-comedy);
+}
+
+.documentary {
+    background: var(--color-documentary);
+}
+
+@media (max-width: 600px) {
+    .pie {
+        width: 180px;
+        height: 180px;
+    }
+}

@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Naslov</th>
+      <th>Godina</th>
+      <th>Žanr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% filmovi.forEach(film => { %>
+      <tr>
+        <td><%= film.Naslov %></td>
+        <td><%= film.Godina %></td>
+        <td><%= film.Zanr %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Slike</title>
+
+    <link href="/style/style.css" rel="stylesheet" />
+    <link href="/style/style_slike.css" rel="stylesheet" />
+    <link href="/style/nav.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Slike</h1>
+    </header>
+
+    <input type="checkbox" id="menu-toggle" />
+
+    <nav class="side-nav" aria-labelledby="primarna-navigacija">
+      <h2 id="primarna-navigacija" class="visually-hidden">
+        Primarna navigacija
+      </h2>
+
+      <label for="menu-toggle" class="menu-button" aria-label="Otvori izbornik">
+        ☰
+      </label>
+
+      <ul>
+        <li><a href="/">Početna</a></li>
+        <li><a href="/grafikon">Grafikon</a></li>
+        <li><a href="/slike">Slike</a></li>
+        <li><a href="/galerija">Galerija</a></li>
+        <li><a href="#">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <section class="galerija">
+      <h1>Galerija filmova</h1>
+
+      <% images.forEach(image => { %>
+        <figure class="galerija_slika">
+          <a class="image-popup-vertical-fit" href="<%= image.full %>" title="<%= image.title %>">
+            <img src="<%= image.thumb %>" alt="<%= image.title %>" loading="lazy" />
+          </a>
+          <figcaption><%= image.title %></figcaption>
+        </figure>
+      <% }) %>
+    </section>
+  </body>
+</html>

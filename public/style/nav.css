@@ -1,0 +1,36 @@
+/* sidebar */
+.side-nav {
+    position: fixed;
+    left: -220px;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: #222;
+    color: #FFF;
+    padding-top: 60px;
+    transition: left 0.3s;
+    z-index: 1000;
+}
+
+/* otvaranje */
+#menu-toggle:checked+.side-nav {
+    left: 0;
+}
+
+/* gumb */
+.menu-button {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    z-index: 1100;
+    /* iznad svega */
+}
+
+/* sakrij checkbox */
+#menu-toggle {
+    display: none;
+}
+
+table {
+    margin: 40px auto;
+}

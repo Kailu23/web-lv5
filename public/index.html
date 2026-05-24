@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Web stranica s popisom filmova i Netflix grafikonima"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/nav.css" />
+
+    <title>Početna stranica</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Dobrodošli na moju web stranicu</h1>
+    </header>
+
+    <input type="checkbox" id="menu-toggle" />
+    <!-- NAVIGACIJA (ARIA + skrivena lijevo) -->
+    <nav class="side-nav" aria-labelledby="primarna-navigacija">
+      <h2 id="primarna-navigacija" class="visually-hidden">
+        Primarna navigacija
+      </h2>
+
+      <label for="menu-toggle" class="menu-button" aria-label="Otvori izbornik">
+        ☰
+      </label>
+
+      <ul>
+        <li><a href="/">Početna</a></li>
+        <li><a href="grafikon.html">Grafikon</a></li>
+        <li><a href="/slike">Slike</a></li>
+        <li><a href="/galerija">Galerija</a></li>
+        <li><a href="#">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>Popis filmova</h1>
+
+      <div id="filteri">
+        <input type="text" id="filter-naziv" placeholder="Pretrazi naslov" />
+
+        <select id="filter-zanr">
+          <option value="">Svi zanrovi</option>
+          <option value="Action">Action</option>
+          <option value="Drama">Drama</option>
+          <option value="Comedy">Comedy</option>
+        </select>
+
+        <input
+          type="range"
+          id="filter-ocjena"
+          min="0"
+          max="10"
+          step="0.1"
+          value="5"
+        />
+        <span id="ocjena-value">5</span>
+
+        <button id="filtriraj-btn">Filtriraj</button>
+      </div>
+      <h2>Košarica</h2>
+
+      <aside id="kosarica">
+        <ul id="lista-kosarice"></ul>
+        <button id="potvrdi">Potvrdi</button>
+      </aside>
+      <div class="content">
+        <!-- TABLICA -->
+        <table aria-label="Popis filmova" id="filmovi-tablica">
+          <thead>
+            <tr>
+              <th>Naslov</th>
+              <th>Godina</th>
+              <th>Zanr</th>
+              <th>Trajanje</th>
+              <th>Ocjena</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="content-location">
+        <aside aria-label="Lokacija">
+          <h2>Karta lokacije</h2>
+
+          <iframe
+            src="https://www.google.com/maps?q=Zagreb&output=embed"
+            width="300"
+            height="200"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+          >
+          </iframe>
+        </aside>
+      </div>
+      <!-- SEKCIJA (ARIA) -->
+
+      <!-- ČLANAK -->
+      <article aria-labelledby="vijesti">
+        <h2 id="vijesti">Najnovije vijesti</h2>
+        <p>Ovdje se nalazi članak s važnim informacijama.</p>
+      </article>
+
+      <!-- ASIDE (desno) -->
+    </main>
+
+    <footer>
+      <p>&copy; 2025. Web Programiranje. Sva prava pridržana.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

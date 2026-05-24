@@ -1,0 +1,57 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html lang="hr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Grafikon - netflix žanrovi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style/grafikon.css" />
+    <link rel="stylesheet" href="style/nav.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Netflix sadržaj po žanrovima</h1>
+    </header>
+
+    <input type="checkbox" id="menu-toggle" />
+    <!-- NAVIGACIJA (ARIA + skrivena lijevo) -->
+    <nav class="side-nav" aria-labelledby="primarna-navigacija">
+      <h2 id="primarna-navigacija" class="visually-hidden">
+        Primarna navigacija
+      </h2>
+
+      <label for="menu-toggle" class="menu-button" aria-label="Otvori izbornik">
+        ☰
+      </label>
+
+      <ul>
+        <li><a href="/">Početna</a></li>
+        <li><a href="grafikon.html">Grafikon</a></li>
+        <li><a href="/slike">Slike</a></li>
+        <li><a href="/galerija">Galerija</a></li>
+        <li><a href="#">Kontakt</a></li>
+      </ul>
+    </nav>
+    <main>
+      <section>
+        <div class="pie"></div>
+
+        <div class="legend">
+          <div><span class="box drama"></span> Drama</div>
+          <div><span class="box crime"></span> Crime</div>
+          <div><span class="box comedy"></span> Comedy</div>
+          <div><span class="box documentary"></span> Documentary</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Podatci preuzeti iz netflix_titles.csv</p>
+    </footer>
+  </body>
+</html>
+
