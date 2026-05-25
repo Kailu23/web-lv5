@@ -82,6 +82,10 @@ app.get('/slike', (req, res) => {
     res.render('slike', { images });
 });
 
+app.get('/glazba', (req, res) => {
+    res.render('glazba', { firebaseConfig: firebaseClientConfig });
+});
+
 app.get('/api/pjesme', verifyToken, async (req, res) => {
     try {
         const { izvodjac, zanr, raspolozenje, godina_min, godina_max, bpm_min, bpm_max } = req.query;
