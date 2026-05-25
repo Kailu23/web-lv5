@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glazba – LV5</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="/style/nav.css">
+    <link rel="stylesheet" href="/style/glazba.css">
+</head>
+<body>
+
+<header>
+    <h1>Glazba – upravljanje playlistom</h1>
+</header>
+
+<!-- Navigacija (ista kao LV3) -->
+<input type="checkbox" id="menu-toggle" />
+<nav class="side-nav" aria-labelledby="primarna-navigacija">
+    <h2 id="primarna-navigacija" class="visually-hidden">Primarna navigacija</h2>
+    <label for="menu-toggle" class="menu-button" aria-label="Otvori izbornik">☰</label>
+    <ul>
+        <li><a href="/">Početna</a></li>
+        <li><a href="/grafikon.html">Grafikon</a></li>
+        <li><a href="/slike">Slike</a></li>
+        <li><a href="/galerija">Galerija</a></li>
+        <li><a href="/glazba" class="aktivan">Glazba</a></li>
+        <li><a href="#">Kontakt</a></li>
+    </ul>
+</nav>
+
+<main>
+
+    <!-- ===== SEKCIJA: Prijava (skrivena nakon prijave) ===== -->
+    <div id="auth-section" class="auth-box">
+        <h2>Prijava / Registracija</h2>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="email@primjer.hr" />
+        <label for="password">Lozinka</label>
+        <input type="password" id="password" placeholder="Lozinka (min. 6 znakova)" />
+        <div class="auth-gumbi">
+            <button id="btn-login">Prijava</button>
+            <button id="btn-register" class="btn-sekundarni">Registracija</button>
+        </div>
+        <p id="auth-error" class="greska-tekst"></p>
+    </div>
+
+    <!-- ===== SEKCIJA: Prijavljen korisnik ===== -->
+    <div id="user-section" style="display:none;">
+
+        <div class="korisnik-info">
+            <p id="user-info"></p>
+            <button id="btn-logout" class="btn-mali">Odjava</button>
+        </div>
+
+        <!-- Forma za unos nove pjesme -->
+        <section class="glazba-forma">
+            <h3>Dodaj pjesmu u bazu</h3>
+            <div class="forma-grid">
+                <div>
+                    <label>Naziv *</label>
+                    <input type="text" id="naziv" placeholder="Naziv pjesme" />
+                </div>
+                <div>
+                    <label>Izvođač *</label>
+                    <input type="text" id="izvodjac" placeholder="Izvođač" />
+                </div>
+                <div>
+                    <label>Žanr *</label>
+                    <select id="zanr">
+                        <option value="">-- Odaberi žanr --</option>
+                        <option>Pop</option>
+                        <option>Rock</option>
+                        <option>Hip-hop</option>
+                        <option>Jazz</option>
+                        <option>Klasična</option>
+                        <option>Elektronika</option>
+                        <option>R&B</option>
+                        <option>Metal</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Trajanje (sek) *</label>
+                    <input type="number" id="trajanje" placeholder="npr. 240" min="1" />
+                </div>
+                <div>
+                    <label>BPM *</label>
+                    <input type="number" id="bpm" placeholder="40–300" min="40" max="300" />
+                </div>
+                <div>
+                    <label>Godina izdanja *</label>
+                    <input type="number" id="godina" placeholder="npr. 2023" min="1900" max="2025" />
+                </div>
+                <div>
+                    <label>Raspoloženje</label>
+                    <input type="text" id="raspolozenje" placeholder="npr. veselo, tužno..." />
+                </div>
+            </div>
+            <p id="forma-greska" class="greska-tekst"></p>
+            <button id="btn-dodaj-pjesmu">💾 Spremi u Firestore</button>
+        </section>
+
+        <!-- Filtriranje -->
+        <section class="filteri">
+            <h3>Pretraži i filtriraj</h3>
+            <div class="filteri-grid">
+                <div>
+                    <label>Izvođač</label>
+                    <input type="text" id="filter-izvodjac" placeholder="Filtriraj po izvođaču" />
+                </div>
+                <div>
+                    <label>Žanr</label>
+                    <select id="filter-zanr">
+                        <option value="">Svi žanrovi</option>
+                        <option>Pop</option>
+                        <option>Rock</option>
+                        <option>Hip-hop</option>
+                        <option>Jazz</option>
+                        <option>Klasična</option>
+                        <option>Elektronika</option>
+                        <option>R&B</option>
+                        <option>Metal</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Raspoloženje</label>
+                    <input type="text" id="filter-raspolozenje" placeholder="npr. veselo" />
+                </div>
+                <div>
+                    <label>BPM od</label>
+                    <input type="number" id="filter-bpm-min" placeholder="min BPM" min="40" max="300" />
+                </div>
+                <div>
+                    <label>BPM do</label>
+                    <input type="number" id="filter-bpm-max" placeholder="max BPM" min="40" max="300" />
+                </div>
+                <div>
+                    <label>Godina od</label>
+                    <input type="number" id="filter-godina-min" placeholder="od" min="1900" max="2025" />
+                </div>
+                <div>
+                    <label>Godina do</label>
+                    <input type="number" id="filter-godina-max" placeholder="do" min="1900" max="2025" />
+                </div>
+            </div>
+            <div class="filteri-gumbi">
+                <button id="btn-filtriraj">🔍 Filtriraj</button>
+                <button id="btn-reset" class="btn-sekundarni">↺ Reset</button>
+            </div>
+        </section>
+
+        <!-- Tablica pjesama -->
+        <section>
+            <h3>Sve pjesme <span id="broj-pjesama" class="badge"></span></h3>
+            <div style="overflow-x:auto;">
+                <table id="tablica-pjesme" aria-label="Popis pjesama">
+                    <thead>
+                        <tr>
+                            <th>Naziv</th>
+                            <th>Izvođač</th>
+                            <th>Žanr</th>
+                            <th>Trajanje</th>
+                            <th>BPM</th>
+                            <th>Godina</th>
+                            <th>Raspoloženje</th>
+                            <th>Akcija</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-pjesme">
+                        <tr><td colspan="8" class="loading">Učitavanje...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Osobna playlista -->
+        <section class="playlista-sekcija">
+            <h3>🎵 Moja playlista <span id="broj-playlista" class="badge"></span></h3>
+            <ul id="lista-playlista"></ul>
+            <p id="playlista-prazna" class="prazno-info" style="display:none;">
+                Playlista je prazna. Dodaj pjesme iz tablice!
+            </p>
+        </section>
+
+    </div><!-- /user-section -->
+
+</main>
+
+<footer>
+    <p>&copy; 2025. Web Programiranje. Sva prava pridržana.</p>
+</footer>
+
+<!-- Firebase config proslijeđen iz server.js -->
+<script>
+    const FIREBASE_CONFIG = <%- JSON.stringify(firebaseConfig) %>;
+</script>
+<script type="module" src="/js/glazba.js"></script>
+
+</body>
+</html>
