@@ -82,6 +82,32 @@ app.get('/slike', (req, res) => {
     res.render('slike', { images });
 });
 
+app.get('/api/pjesme', verifyToken, async (req, res) => {
+    try {
+        const { izvodjac, zanr, raspolozenje, godina_min, godina_max, bpm_min, bpm_max } = req.query;
+
+        let ref = db.collection('pjesme');
+
+        if (izvodjac) ref = ref.where('izvodjac', '==', izvodjac);
+        if (zanr)     ref = ref.where('zanr', '==', zanr);
+        if (raspolozenje) ref = ref.where('raspolozenje', '==', raspolozenje);
+
+        const snapshot = await ref.get();
+        let pjesme = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+
+        if (godina_min) pjesme = pjesme.filter(p => p.godina >= +godina_min);
+        if (godina_max) pjesme = pjesme.filter(p => p.godina <= +godina_max);
+        if (bpm_min)    pjesme = pjesme.filter(p => p.bpm >= +bpm_min);
+        if (bpm_max)    pjesme = pjesme.filter(p => p.bpm <= +bpm_max);
+
+        pjesme.sort((a, b) => a.naziv.localeCompare(b.naziv));
+
+        res.json(pjesme);
+    } catch (err) {
+        res.status(500).json({ greska: err.message });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server pokrenut na portu ${PORT}`);
 });
