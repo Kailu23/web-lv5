@@ -196,6 +196,19 @@ app.post('/api/playlist', verifyToken, async (req, res) => {
     res.status(201).json({ id: docRef.id, message: 'Dodano na playlistu.' });
 });
 
+app.delete('/api/playlist/:id', verifyToken, async (req, res) => {
+    const docRef = db.collection('playlist').doc(req.params.id);
+    const docSnap = await docRef.get();
+    if (!docSnap.exists) {
+        return res.status(404).json({ error: 'Stavka nije pronadjena.' });
+    }
+    if (docSnap.data().userId !== req.user.uid) {
+        return res.status(403).json({ error: 'Nemate pravo brisanja.' });
+    }
+    await docRef.delete();
+    res.json({ message: 'Uklonjeno s playliste.' });
+});
+
 app.listen(PORT, () => {
     console.log(`Server pokrenut na portu ${PORT}`);
 });
