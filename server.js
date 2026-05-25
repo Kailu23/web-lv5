@@ -12,12 +12,18 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 const keyPath = path.join(__dirname, 'serviceAccountKey.json')
-if (!fs.existsSync(keyPath)) {
+
+let serviceAccount;
+
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+} else if (fs.existsSync(keyPath)) {
+    serviceAccount = require(keyPath);
+} else {
     console.error('serviceAccountKey.json not found!');
     process.exit(1);
 }
-
-const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT) : require(keyPath);
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
