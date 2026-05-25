@@ -142,6 +142,16 @@ app.post('/api/pjesme', verifyToken, async (req, res) => {
     req.status(201).json({ id: docRef.id, message: 'Pjesma dodana.' });
 });
 
+app.delete('/api/pjesme/:id', verifyToken, async (req, res) => {
+    const docRef = db.collection('pjesme').doc(req.params.id);
+    const docSnap = await docRef.get();
+    if (!docSnap.exists) {
+        return res.status(404).json({ error: 'Pjesma nije pronadjena.' });
+    }
+    await docRef.delete();
+    res.json({ message: 'Pjesma obrisana.' });
+});
+
 app.listen(PORT, () => {
     console.log(`Server pokrenut na portu ${PORT}`);
 });
