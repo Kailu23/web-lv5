@@ -152,6 +152,25 @@ app.delete('/api/pjesme/:id', verifyToken, async (req, res) => {
     res.json({ message: 'Pjesma obrisana.' });
 });
 
+app.get('/api/playlist', verifyToken, async (req, res) => {
+    try {
+        const snapshot = await db.collection('playlist')
+            .where('userId', '==', req.user.uid)
+            .get();
+
+        const stavke = snapshot.docs
+        .map((d) => ({id: d.id, ...d.data()}))
+        .sort((a, b) => {
+            const ta = a.dodano?.seconds ?? 0;
+            const tb = b.dodano?.seconds ?? 0;
+            return tb - ta;
+        });
+        res.json(stavke);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server pokrenut na portu ${PORT}`);
 });
