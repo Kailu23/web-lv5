@@ -16,8 +16,11 @@ if (!fs.existsSync(keyPath)) {
     console.error('serviceAccountKey.json not found!');
     process.exit(1);
 }
+
+const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT) : require(keyPath);
+
 admin.initializeApp({
-    credential: admin.credential.cert(require(keyPath))
+    credential: admin.credential.cert(serviceAccount)
 });
 const db = admin.firestore();
 
