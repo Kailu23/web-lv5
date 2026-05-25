@@ -108,6 +108,40 @@ app.get('/api/pjesme', verifyToken, async (req, res) => {
     }
 });
 
+app.post('/api/pjesme', verifyToken, async (req, res) => {
+    const { naziv, izvodjac, zanr, trajanje, bpm, godina, raspolozenje } = req.body;
+
+    if (!naziv?.trim()) {
+        return res.status(400).json({ error: 'Naziv je obavezan.' });
+    }
+    if (!zanr) {
+        return res.status(400).json({ error: 'Zanr je obavezan.' });
+    }
+    if (isNaN(bpm) || bpm < 40 || bpm > 300) {
+        return res.status(400).json({ error: 'BPM mora biti izmedju 40 i 300.' });
+    }
+    if (isNaN(godina) || godina < 1500 || godina > new Date().getFullYear()) {
+        return res.status(400).json({ error: 'Godina nije ispravna.' });
+    }
+    if (isNaN(trajanje) || trajanje <= 0) {
+        return res.status(400).json({ error: 'Trajanje mora biti pozitivan broj.' });
+    }
+
+    const docRef = await db.collection('pjesme').add({
+        naziv: naziv.trim(),
+        izvodjac: izvodjac?.trim() || '',
+        zanr,
+        trajanje: +trajanje,
+        bpm: +bpm,
+        godina: +godina,
+        raspolozenje: raspolozenje?.trim() || '',
+        userId: req.user.uid,
+        kreirano: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    req.status(201).json({ id: docRef.id, message: 'Pjesma dodana.' });
+});
+
 app.listen(PORT, () => {
     console.log(`Server pokrenut na portu ${PORT}`);
 });
