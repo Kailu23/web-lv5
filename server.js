@@ -171,6 +171,31 @@ app.get('/api/playlist', verifyToken, async (req, res) => {
     }
 });
 
+app.post('/api/playlist', verifyToken, async (req, res) => {
+    const { pjesmaId, naziv } = req.body;
+    if (!pjesmaId) {
+        return res.status(400).json({ error: 'pjesmaId je obavezan.' });
+    }
+
+    const existing = await db.collection('playlist')
+        .where('userId', '==', req.user.uid)
+        .where('pjesmaId', '==', pjesmaId)
+        .get();
+
+    if (!existing.empty) {
+        return res.status(409).json({ error: '"$(naziv) je vec na playlisti!' });
+    }
+
+    const docRef = await db.collection('playlist').add({
+        userId: req.user.uid,
+        pjesmaId,
+        naziv,
+        dodano: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    res.status(201).json({ id: docRef.id, message: 'Dodano na playlistu.' });
+});
+
 app.listen(PORT, () => {
     console.log(`Server pokrenut na portu ${PORT}`);
 });
