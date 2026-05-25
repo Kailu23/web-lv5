@@ -1,5 +1,5 @@
 {
-  "name": "lv3",
+  "name": "lv5",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -12,7 +12,11 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "ejs": "^5.0.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "firebase": "^12.13.0",
+    "firebase-admin": "^13.10.0"
   }
 }
