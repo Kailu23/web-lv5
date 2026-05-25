@@ -12,6 +12,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="style/style.css" />
     <link rel="stylesheet" href="style/nav.css" />
+    <link rel="stylesheet" href="style/glazba.css" />
 
     <title>Početna stranica</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -25,21 +26,16 @@
     <input type="checkbox" id="menu-toggle" />
     <!-- NAVIGACIJA (ARIA + skrivena lijevo) -->
     <nav class="side-nav" aria-labelledby="primarna-navigacija">
-      <h2 id="primarna-navigacija" class="visually-hidden">
-        Primarna navigacija
-      </h2>
-
-      <label for="menu-toggle" class="menu-button" aria-label="Otvori izbornik">
-        ☰
-      </label>
-
-      <ul>
-        <li><a href="/">Početna</a></li>
-        <li><a href="grafikon.html">Grafikon</a></li>
-        <li><a href="/slike">Slike</a></li>
-        <li><a href="/galerija">Galerija</a></li>
-        <li><a href="#">Kontakt</a></li>
-      </ul>
+        <h2 id="primarna-navigacija" class="visually-hidden">Primana navigacija</h2>
+        <label for="menu-toggle" class="menu-button" aria-label="Otvori izbornik">☰</label>
+        <ul>
+            <li><a href="/">Početna</a></li>
+            <li><a href="/grafikon.html">Grafikon</a></li>
+            <li><a href="/slike">Slike</a></li>
+            <li><a href="/galerija">Galerija</a></li>
+            <li><a href="/glazba" class="aktivan">Glazba</a></li>
+            <li><a href="#">Kontakt</a></li>
+        </ul>
     </nav>
 
     <main>
